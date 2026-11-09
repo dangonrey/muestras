@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa Rafael · Vinos y tapas · Carta (muestra)</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    --bg:#faf6ef; --card:#fff; --ink:#2b2420; --muted:#7a6e64;
+    --brand:#b5462f; --brand-2:#1f4e5f; --line:#ece4d8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+  header{background:linear-gradient(160deg,var(--brand-2),#163a47);color:#fff;padding:52px 20px 22px;text-align:center}
+  header h1{margin:0;font-family:Georgia,serif;font-size:28px;letter-spacing:.5px}
+  header p{margin:6px 0 0;opacity:.85;font-size:14px}
+  .lang{position:absolute;top:14px;right:14px;display:flex;gap:4px}
+  .lang button{background:rgba(255,255,255,.15);border:0;color:#fff;padding:6px 10px;border-radius:8px;font-weight:600;cursor:pointer}
+  .lang button.on{background:#fff;color:var(--brand-2)}
+  .wrap{max-width:640px;margin:0 auto;padding:0 14px 60px}
+  .daily{background:var(--brand);color:#fff;border-radius:14px;padding:14px 16px;margin:16px 0 4px;box-shadow:0 4px 14px rgba(181,70,47,.25)}
+  .daily small{text-transform:uppercase;letter-spacing:1px;opacity:.85;font-size:11px;font-weight:700}
+  .daily div{font-size:16px;font-weight:600;margin-top:3px}
+  .search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font-size:15px;margin:12px 0 0;background:#fff}
+  nav{position:sticky;top:0;background:var(--bg);display:flex;gap:8px;overflow-x:auto;padding:12px 0;z-index:5;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600}
+  nav a.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  section h2{font-family:Georgia,serif;font-size:21px;margin:22px 0 10px;scroll-margin-top:64px}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px}
+  .item h3{margin:0;font-size:16px}
+  .item p{margin:4px 0 6px;color:var(--muted);font-size:13.5px;line-height:1.35}
+  .price{font-weight:700;white-space:nowrap;text-align:right;font-size:15px}
+  .price small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+  .tags{display:flex;flex-wrap:wrap;gap:4px}
+  .tag{font-size:11px;padding:2px 7px;border-radius:6px;background:#f3ece1;color:#6b5a48}
+  .tag.star{background:#fde8d9;color:var(--brand);font-weight:700}
+  .tag.veg{background:#e2f2e3;color:#2f6b35}
+  .sample{background:#fff7d6;border:1px dashed #d9b84a;color:#6b5a1e;border-radius:12px;padding:10px 12px;font-size:12.5px;margin-top:14px;line-height:1.4}
+  .empty{text-align:center;color:var(--muted);padding:30px 0;display:none}
+  footer{text-align:center;color:var(--muted);font-size:12.5px;padding:24px 10px;line-height:1.6}
+  footer a{color:var(--brand-2);font-weight:600}
+  .legend{font-size:12px;color:var(--muted);margin-top:14px}
+</style>
+</head>
+<body>
+<header style="position:relative">
+  <div class="lang"><button data-l="es" class="on">ES</button><button data-l="en">EN</button></div>
+  <h1>Casa Rafael</h1>
+  <p data-t="tagline">Cocina gaditana · Desde 1987</p>
+</header>
+
+<div class="wrap">
+  <div class="sample" data-t="sample">Muestra preparada por MesaQR para Casa Rafael. Platos y precios orientativos: se sustituyen por vuestra carta real.</div>
+  <div class="daily"><small data-t="dailyLabel">Fuera de carta hoy</small><div data-t="dailyText">Pescado del día según mercado · Pregunta al camarero</div></div>
+  <input class="search" id="q" type="search" placeholder="Buscar plato…">
+  <nav id="nav"></nav>
+  <div id="menu"></div>
+  <div class="empty" id="empty" data-t="empty">No hay platos que coincidan.</div>
+  <p class="legend" data-t="legend">Pregunta al personal por alérgenos. Precios con IVA incluido.</p>
+</div>
+
+<footer>
+  📍 Calle Periodista Emilio López 7, Cádiz<br>
+  🕑 <span data-t="hours">Mié–Sáb 12:30–16:00 y 21:00–23:00 · Mar y Dom solo mediodía · Lunes cerrado</span><br>
+  <a href="#" onclick="return false">📞 Reservar por WhatsApp (se activa con vuestro número)</a>
+</footer>
+
+<script>
+const T = {
+  es:{tagline:"Vinos y tapas · Cádiz",dailyLabel:"Fuera de carta hoy",dailyText:"Pescado del día según mercado · Pregunta al camarero",
+      search:"Buscar plato…",empty:"No hay platos que coincidan.",legend:"Pregunta al personal por alérgenos. Precios con IVA incluido.",
+      hours:"Mié–Sáb 12:30–16:00 y 21:00–23:00 · Mar y Dom solo mediodía · Lunes cerrado",tapa:"tapa",racion:"ración",star:"★ De la casa",veg:"Vegetariano",
+      sample:"Muestra preparada por MesaQR para Casa Rafael. Platos y precios orientativos: se sustituyen por vuestra carta real."},
+  en:{tagline:"Wines & tapas · Cádiz",dailyLabel:"Today's specials",dailyText:"Fish of the day from the market · Ask your waiter",
+      search:"Search dishes…",empty:"No matching dishes.",legend:"Ask our staff about allergens. Prices include VAT.",
+      hours:"Wed–Sat 12:30–16:00 & 21:00–23:00 · Tue & Sun lunch only · Closed Mondays",tapa:"tapa",racion:"portion",star:"★ House special",veg:"Vegetarian",
+      sample:"Sample prepared by MesaQR for Casa Rafael. Dishes and prices are placeholders, to be replaced with your real menu."}
+};
+const A = {g:{es:"Gluten",en:"Gluten"},p:{es:"Pescado",en:"Fish"},h:{es:"Huevo",en:"Egg"},l:{es:"Lácteos",en:"Dairy"},m:{es:"Marisco",en:"Shellfish"},f:{es:"Frutos secos",en:"Nuts"}};
+const MENU = [
+ {cat:{es:"Del mar",en:"From the sea"},items:[
+  {n:{es:"Zamburiñas a la plancha",en:"Grilled queen scallops"},d:{es:"Con ajo y perejil",en:"With garlic and parsley"},tapa:4,rac:12,a:"m",star:1},
+  {n:{es:"Langostinos tigre",en:"Tiger prawns"},d:{es:"A la plancha con sal gorda",en:"Grilled with sea salt"},rac:14,a:"m",star:1},
+  {n:{es:"Gambas al ajillo",en:"Garlic prawns"},d:{es:"En cazuela, chisporroteando",en:"Sizzling in a clay pot"},tapa:3.5,rac:10,a:"m"},
+  {n:{es:"Pulpo",en:"Octopus"},d:{es:"Con aceite de oliva y pimentón",en:"With olive oil and paprika"},tapa:4,rac:13,a:"m"},
+  {n:{es:"Tortillitas de camarones",en:"Shrimp fritters"},d:{es:"Finas y crujientes",en:"Thin and crispy"},tapa:3,rac:9,a:"gm"}
+ ]},
+ {cat:{es:"Fritura",en:"Fried fish"},items:[
+  {n:{es:"Calamares fritos",en:"Fried squid"},d:{es:"",en:""},tapa:3.5,rac:11,a:"gm"},
+  {n:{es:"Chocos fritos",en:"Fried cuttlefish"},d:{es:"Clásico gaditano",en:"A Cádiz classic"},tapa:3.5,rac:11,a:"gm"},
+  {n:{es:"Cazón en adobo",en:"Marinated dogfish"},d:{es:"",en:""},tapa:3,rac:10,a:"gp"},
+  {n:{es:"Pescaíto frito variado",en:"Mixed fried fish"},d:{es:"Para compartir",en:"To share"},rac:15,a:"gpm"}
+ ]},
+ {cat:{es:"Tapas de siempre",en:"Classic tapas"},items:[
+  {n:{es:"Papas aliñás",en:"Dressed potatoes"},d:{es:"Con cebolleta y AOVE",en:"With spring onion & olive oil"},tapa:2.5,rac:7,a:"",veg:1},
+  {n:{es:"Ensaladilla",en:"Russian salad"},d:{es:"",en:""},tapa:3,rac:8,a:"hp"},
+  {n:{es:"Carrillada al vino",en:"Pork cheek in wine"},d:{es:"",en:""},tapa:3.5,rac:11,a:""}
+ ]},
+ {cat:{es:"Postres",en:"Desserts"},items:[
+  {n:{es:"Torrija casera",en:"Homemade torrija (Spanish French toast)"},d:{es:"",en:""},rac:4.5,a:"glh",veg:1,star:1}
+ ]},
+ {cat:{es:"Vinos",en:"Wines"},items:[
+  {n:{es:"Manzanilla de Sanlúcar (copa)",en:"Manzanilla sherry (glass)"},d:{es:"",en:""},rac:2.5,a:""},
+  {n:{es:"Fino (copa)",en:"Fino sherry (glass)"},d:{es:"",en:""},rac:2.5,a:""},
+  {n:{es:"Blanco de la Tierra de Cádiz (copa)",en:"Cádiz white wine (glass)"},d:{es:"",en:""},rac:3,a:""},
+  {n:{es:"Tinto (copa)",en:"Red wine (glass)"},d:{es:"",en:""},rac:3,a:""}
+ ]}
+];
+
+let lang = "es";
+const eur = v => lang==="es" ? v.toFixed(2).replace(".",",")+" €" : "€"+v.toFixed(2);
+
+function render(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const nav = document.getElementById("nav"), menu = document.getElementById("menu");
+  nav.innerHTML = ""; menu.innerHTML = ""; let shown = 0;
+  MENU.forEach((c,i)=>{
+    const items = c.items.filter(it => !q || (it.n[lang]+" "+it.d[lang]).toLowerCase().includes(q));
+    if(!items.length) return;
+    shown += items.length;
+    nav.insertAdjacentHTML("beforeend",`<a href="#c${i}">${c.cat[lang]}</a>`);
+    menu.insertAdjacentHTML("beforeend",`<section><h2 id="c${i}">${c.cat[lang]}</h2>${items.map(it=>`
+      <div class="item"><div>
+        <h3>${it.n[lang]}</h3>${it.d[lang]?`<p>${it.d[lang]}</p>`:""}
+        <div class="tags">${it.star?`<span class="tag star">${T[lang].star}</span>`:""}${it.veg?`<span class="tag veg">${T[lang].veg}</span>`:""}${[...it.a].map(k=>`<span class="tag">${A[k][lang]}</span>`).join("")}</div>
+      </div><div class="price">${it.tapa?`${eur(it.tapa)}<small>${T[lang].tapa}</small>${eur(it.rac)}<small>${T[lang].racion}</small>`:eur(it.rac)}</div></div>`).join("")}</section>`);
+  });
+  document.getElementById("empty").style.display = shown ? "none" : "block";
+  document.querySelectorAll("[data-t]").forEach(el=>el.textContent=T[lang][el.dataset.t]);
+  document.getElementById("q").placeholder = T[lang].search;
+  spy();
+}
+function spy(){
+  const links=[...document.querySelectorAll("nav a")]; let cur=links[0];
+  links.forEach(a=>{const s=document.querySelector(a.getAttribute("href")); if(s && s.getBoundingClientRect().top<90) cur=a;});
+  links.forEach(a=>a.classList.toggle("active",a===cur));
+}
+document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>{
+  lang=b.dataset.l; document.documentElement.lang=lang;
+  document.querySelectorAll(".lang button").forEach(x=>x.classList.toggle("on",x===b)); render();
+});
+document.getElementById("q").oninput = render;
+addEventListener("scroll",spy,{passive:true});
+render();
+</script>
+</body>
+</html>
